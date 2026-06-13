@@ -48,6 +48,13 @@
 
         .notes-area { width: 100%; min-height: 50px; background: rgba(10,25,47,0.02); border: 1px dashed var(--line); border-radius: 8px; padding: 10px; font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text); resize: vertical; outline: none; margin-top: 10px; }
         .notes-area:focus { border-color: var(--gold); border-style: solid; }
+        .combos-list { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+        .combo-item { background: rgba(10,25,47,0.03); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+        [data-theme="dark"] .combo-item { background: rgba(255,255,255,0.03); }
+        .combo-item strong { display: block; color: var(--navy); font-size: 1.05rem; margin-bottom: 6px; font-family: 'Cormorant Garamond', serif; }
+        .combo-details { display: flex; flex-direction: column; gap: 4px; font-size: 0.85rem; font-family: 'Inter', sans-serif; }
+        .combo-ind { color: var(--success); }
+        .combo-se { color: var(--danger); }
         /* Anki SRS View */
         .anki-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; }
         .flashcard { width: 100%; max-width: 500px; height: 350px; perspective: 1000px; margin-bottom: 30px; cursor: pointer; }
@@ -194,7 +201,7 @@
         { id: "theophylline", name: "Theophylline", class: "Methylxanthine", system: "Respiratory", brands: ["Theograd"], dose: "½ tab TDS", front: "Theophylline: The Ciprofloxacin Interaction?", back: "Narrow therapeutic index. Cipro inhibits its metabolism -> <strong>Theophylline Toxicity</strong> (Intractable vomiting, Seizures, Arrhythmias)." },
         
         // CNS
-        { id: "phenytoin", name: "Phenytoin", class: "Na+ Channel Blocker", system: "CNS", brands: ["Epilantin"], dose: "Load then maintain", front: "Phenytoin: IV Administration Rules?", back: "<strong>1.</strong> NEVER mix with Dextrose (precipitates). Use NS.<br><strong>2.</strong> Use inline filter.<br><strong>3.</strong> Flush line to prevent 'Purple Glove Syndrome' (tissue necrosis)." }   // --- BATCH 2: ADVANCED ANTIBIOTICS ---
+        { id: "phenytoin", name: "Phenytoin", class: "Na+ Channel Blocker", system: "CNS", brands: ["Epilantin"], dose: "Load then maintain", front: "Phenytoin: IV Administration Rules?", back: "<strong>1.</strong> NEVER mix with Dextrose (precipitates). Use NS.<br><strong>2.</strong> Use inline filter.<br><strong>3.</strong> Flush line to prevent 'Purple Glove Syndrome' (tissue necrosis)." } // --- BATCH 2: ADVANCED ANTIBIOTICS ---
         { id: "cefixime", name: "Cefixime", class: "3rd Gen Cephalosporin (Oral)", system: "Antibiotics", brands: ["Cefspan", "Cefiget"], dose: "200-400mg OD/BD", front: "Cefixime: Major coverage gap?", back: "Like all oral cephalosporins, it has <strong>NO coverage against Staphylococci</strong> or Enterococci. Do not use for skin/soft tissue infections." },
         { id: "amikacin", name: "Amikacin", class: "Aminoglycoside", system: "Antibiotics", brands: ["Grasil"], dose: "15mg/kg IV OD", front: "Aminoglycosides: Dosing hack & 2 major toxicities?", back: "<strong>Hack:</strong> Once-daily dosing is less nephrotoxic (allows renal washout) and more bactericidal.<br><strong>Tox:</strong> Nephrotoxicity & Ototoxicity (irreversible)." },
         { id: "linezolid", name: "Linezolid", class: "Oxazolidinone", system: "Antibiotics", brands: ["Ecasil", "Zyvox"], dose: "600mg IV/PO BD", front: "Linezolid: 2 Major Hidden Dangers?", back: "<strong>1. Serotonin Syndrome:</strong> It is a weak MAOI. Fatal if combined with SSRIs.<br><strong>2. Bone Marrow Suppression:</strong> Causes thrombocytopenia if used for >14 days." },
@@ -218,7 +225,7 @@
         { id: "domperidone", name: "Domperidone", class: "Peripheral D2 Antagonist", system: "GIT", brands: ["Motilium"], dose: "10mg TDS", front: "Domperidone vs. Metoclopramide?", back: "Does <strong>NOT</strong> cross the BBB (no EPS/dystonia like Maxolon). However, it blocks cardiac hERG channels -> <strong>QT Prolongation</strong>. Avoid in cardiac patients." },
         { id: "drotaverine", name: "Drotaverine", class: "Antispasmodic", system: "GIT", brands: ["No-Spa"], dose: "40-80mg BD/TDS", front: "Drotaverine: Mechanism & Advantage?", back: "PDE-4 inhibitor (smooth muscle relaxant) <strong>without</strong> anticholinergic side effects. Excellent for biliary/renal colic and dysmenorrhea without causing dry mouth, tachycardia, or urinary retention." },
         { id: "sucralfate", name: "Sucralfate", class: "Mucosal Protectant", system: "GIT", brands: ["Ulsanic"], dose: "1g QID", front: "Sucralfate: The 'Acid & Timing' Rule?", back: "Requires an <strong>acidic environment</strong> to polymerize and bind to the ulcer crater. Give 1 hour BEFORE meals. Do NOT co-administer with PPIs/Antacids, or it won't work." },
-        { id: "lactulose", name: "Lactulose", class: "Osmotic Laxative", system: "GIT", brands: ["Duphalac"], dose: "15-30ml 8h", front: "Lactulose in Hepatic Encephalopathy: Titration Goal?", back: "Converts NH3 to NH4+ (trap). Titrate dose to achieve exactly <strong>2 to 3 soft stools a day</strong>. More causes dehydration -> worsens encephalopathy." } ];
+        { id: "lactulose", name: "Lactulose", class: "Osmotic Laxative", system: "GIT", brands: ["Duphalac"], dose: "15-30ml 8h", front: "Lactulose in Hepatic Encephalopathy: Titration Goal?", back: "Converts NH3 to NH4+ (trap). Titrate dose to achieve exactly <strong>2 to 3 soft stools a day</strong>. More causes dehydration -> worsens encephalopathy." }   ];
 
     // ==========================================
     // WARD VIEW LOGIC
@@ -228,36 +235,30 @@
 
     function renderWard(filter = '') {
         drugList.innerHTML = '';
-        const systems = [...new Set(drugDatabase.map(d => d.system))];
-        
+        const systems = [...new Set(drugDatabase.map(d => d.system))].sort();
         systems.forEach(sys => {
             const filtered = drugDatabase.filter(d => d.system === sys && (
                 d.name.toLowerCase().includes(filter) || 
                 d.class.toLowerCase().includes(filter) ||
                 d.brands.some(b => b.toLowerCase().includes(filter)) ||
-                d.back.toLowerCase().includes(filter)
+                d.back.toLowerCase().includes(filter) ||
+                (d.combos && d.combos.some(c => c.name.toLowerCase().includes(filter)))
             ));
-
             if(filtered.length > 0) {
-                let sysHTML = `<div class="system-header">${sys} <span>${filtered.length}</span></div>`;
+                let sysHTML = `<div class="system-header">${sys.replace(/^\d+\.\s/, '')} <span>${filtered.length}</span></div>`;
                 filtered.forEach(drug => {
                     const noteKey = `note_${drug.id}`;
-                    const savedNote = localStorage.getItem(noteKey) || '';
+                    const savedNote = vault.get(noteKey) || '';
                     const brandsHTML = drug.brands.map(b => `<span class="brand-tag">${b}</span>`).join('');
-                    
-                    sysHTML += `
-                        <div class="drug-card">
-                            <h3>${drug.name}</h3>
-                            <span class="class">${drug.class}</span>
-                            <div class="brands">${brandsHTML}</div>
-                            <h4>Dosing</h4>
-                            <p>${drug.dose}</p>
-                            <h4>Elite Pearl / Toxicity</h4>
-                            <div class="pearl">${drug.back.replace(/<br>/g, '<br>')}</div>
-                            <h4>📝 My Ward Notes</h4>
-                            <textarea class="notes-area" placeholder="Add personal notes (e.g., Ward 4 pharmacy out of stock)..." oninput="saveNote('${noteKey}', this.value)">${savedNote}</textarea>
-                        </div>
-                    `;
+                    let combosHTML = '';
+                    if (drug.combos && drug.combos.length > 0) {
+                        combosHTML = `<h4>🧩 Combinations</h4><div class="combos-list">`;
+                        drug.combos.forEach(c => {
+                            combosHTML += `<div class="combo-item"><strong>${c.name}</strong><div class="combo-details"><span class="combo-ind"><b>Ind:</b> ${c.ind}</span><span class="combo-se"><b>SE/CI:</b> ${c.se}</span></div></div>`;
+                        });
+                        combosHTML += `</div>`;
+                    }
+                    sysHTML += `<div class="drug-card"><h3>${drug.name}</h3><span class="class">${drug.class}</span><div class="brands">${brandsHTML}</div><h4>Dosing</h4><p>${drug.dose}</p><h4>Elite Profile</h4><div class="pearl">${drug.back}</div>${combosHTML}<h4>📝 My Ward Notes</h4><textarea class="notes-area" placeholder="Add personal notes..." oninput="vault.set('${noteKey}', this.value)">${savedNote}</textarea></div>`;
                 });
                 drugList.innerHTML += sysHTML;
             }
@@ -515,51 +516,85 @@
     // THE MASTER DATABASE (From PDF + Elite Pearls)
     // ==========================================
     const drugDatabase = [
-        // ANALGESICS
-        { id: "paracetamol", name: "Paracetamol", class: "Non-Opioid Analgesic", system: "Analgesics", brands: ["Panadol", "Calpol", "Disprol"], dose: "500mg-1g 6-8h (Max 4g)", front: "Paracetamol: Max Dose, Toxicity & Antidote?", back: "<strong>Max:</strong> 4g/day.<br><strong>Tox:</strong> NAPQI -> Hepatic failure.<br><strong>Antidote:</strong> N-Acetylcysteine.<br><strong>Pearl:</strong> Drug of choice in Dengue. Beware hidden OTC combos." },
-        { id: "ibuprofen", name: "Ibuprofen", class: "NSAID", system: "Analgesics", brands: ["Brufen", "Actifen"], dose: "200-400mg TDS", front: "Ibuprofen: The 'Triple Whammy' interaction?", back: "<strong>NSAID + ACEi/ARB + Diuretic</strong><br>Guarantees Acute Kidney Injury by collapsing the glomerular filtration gradient (Afferent constriction + Efferent dilation + Volume depletion)." },
-        { id: "diclofenac", name: "Diclofenac", class: "NSAID", system: "Analgesics", brands: ["Voren", "Artifen", "Dicloran"], dose: "25-50mg BD", front: "Diclofenac: The Renal Colic Hack?", back: "Superior to opioids for ureteric colic because it halts prostaglandin-mediated ureteric spasm and renal capsular stretch. <em>Must check Creatinine first!</em>" },
-        { id: "tramadol", name: "Tramadol", class: "Atypical Opioid / SNRI", system: "Analgesics", brands: ["Tramal"], dose: "50-100mg 6h (Max 400mg)", front: "Tramadol: 2 Major Neurological Red Flags?", back: "<strong>1. Seizures:</strong> Lowers threshold. Avoid in epilepsy.<br><strong>2. Serotonin Syndrome:</strong> SNRI activity. Fatal if combined with SSRIs (Hyperthermia, Clonus)." },
-        { id: "tizanidine", name: "Tizanidine", class: "Muscle Relaxant (Alpha-2)", system: "Analgesics", brands: ["Ternelin", "Movax"], dose: "2-4mg TDS", front: "Tizanidine: The Ciprofloxacin Clash?", back: "Tizanidine is metabolized by CYP1A2. <strong>Ciprofloxacin</strong> inhibits this. Co-prescribing causes toxic Tizanidine accumulation leading to profound hypotension and coma." },
-        
-        // ANTIBIOTICS
-        { id: "augmentin", name: "Co-amoxiclav", class: "Penicillin + BLI", system: "Antibiotics", brands: ["Augmentin", "Calamox"], dose: "625mg TDS / 1g BD", front: "Augmentin: Classic Hepatotoxicity Pattern?", back: "<strong>Cholestatic Jaundice:</strong> The Clavulanic acid causes idiosyncratic cholestatic hepatitis, especially in elderly males on prolonged courses (>2 weeks)." },
-        { id: "ceftriaxone", name: "Ceftriaxone", class: "3rd Gen Cephalosporin", system: "Antibiotics", brands: ["Rocephin", "Inocef"], dose: "1-2g IV OD/BD", front: "Ceftriaxone: Major IV incompatibility & Neonatal risk?", back: "<strong>Never mix with Calcium</strong> (e.g., Ringer's Lactate) -> fatal precipitates in lungs/kidneys. Avoid in neonates (biliary sludging & kernicterus)." },
-        { id: "ciprofloxacin", name: "Ciprofloxacin", class: "Fluoroquinolone", system: "Antibiotics", brands: ["Ciprin", "Novidat"], dose: "250-750mg BD", front: "Ciprofloxacin: 3 Major Black-Box Warnings?", back: "<strong>1. Tendon Rupture</strong> (Achilles).<br><strong>2. QT Prolongation</strong> (Arrhythmia).<br><strong>3. Aortic Aneurysm</strong> rupture. Avoid in uncomplicated infections." },
-        { id: "azithromycin", name: "Azithromycin", class: "Macrolide", system: "Antibiotics", brands: ["Azomax"], dose: "500mg OD x 3 days", front: "Azithromycin: Role in XDR Typhoid?", back: "In Pakistan, <em>Salmonella Typhi</em> is extensively drug-resistant (XDR). Ceftriaxone is failing. <strong>Azithromycin</strong> (oral) or <strong>Meropenem</strong> (IV) are the drugs of choice." },
-        { id: "p iptazo", name: "Piperacillin-Tazobactam", class: "Antipseudomonal Penicillin", system: "Antibiotics", brands: ["Tazocin", "Tanzo"], dose: "4.5g IV 8h", front: "Pip-Tazo: The 'Prolonged Infusion' Hack?", back: "Beta-lactams are time-dependent. Infusing 4.5g over <strong>4 hours</strong> (instead of 30 mins) keeps levels above the MIC longer, drastically improving mortality in Pseudomonas sepsis." },
-        { id: "meropenem", name: "Meropenem", class: "Carbapenem", system: "Antibiotics", brands: ["Meronem"], dose: "1g IV 8h", front: "Meropenem: The Renal Dose Danger?", back: "If a CKD patient receives a normal dose, it accumulates in the CNS and causes <strong>Seizures</strong>. Must strictly adjust for CrCl < 50." },
-        { id: "vancomycin", name: "Vancomycin", class: "Glycopeptide", system: "Antibiotics", brands: ["Vancocin"], dose: "15-20mg/kg IV BD", front: "Vancomycin: 'Red Man Syndrome' mechanism & prevention?", back: "Not a true allergy; it's a <strong>histamine release</strong> caused by rapid infusion. <strong>Prevention:</strong> Infuse slowly over at least 1 hour." },
-        
-        // ANTI-TB
-        { id: "hrze", name: "HRZE (Anti-TB)", class: "Fixed Dose Combo", system: "Anti-TB", brands: ["Myrin-P Forte", "Rifa-4"], dose: "Weight-based OD", front: "HRZE: Match the drug to its classic toxicity?", back: "<strong>Rifampicin:</strong> Red/Orange secretions, CYP450 Inducer.<br><strong>Isoniazid:</strong> Peripheral Neuropathy (Give B6).<br><strong>Pyrazinamide:</strong> Hyperuricemia/Gout.<br><strong>Ethambutol:</strong> Optic Neuritis (Red-Green blindness)." },
-        
-        // CVS
-        { id: "lisinopril", name: "Lisinopril", class: "ACE Inhibitor", system: "CVS", brands: ["Zestril", "Ziscar"], dose: "5-10mg OD (Max 40)", front: "ACE Inhibitors: The 'Dry Cough' mechanism?", back: "Accumulation of <strong>Bradykinin</strong> in the lungs. If intolerable, switch to an ARB (Losartan) which does not affect bradykinin." },
-        { id: "losartan", name: "Losartan", class: "ARB", system: "CVS", brands: ["Xavor", "Eziday"], dose: "50mg OD (Max 100)", front: "Losartan + HCTZ: The Gout Trigger?", back: "HCTZ (Hydrochlorothiazide) causes <strong>Hyperuricemia</strong>. Avoid Co-Eziday/Xavor-DIU in patients with a history of Gout." },
-        { id: "amlodipine", name: "Amlodipine", class: "CCB (Dihydropyridine)", system: "CVS", brands: ["Norvasc", "Amodip"], dose: "2.5-5mg OD (Max 10)", front: "Amlodipine: Pedal Edema Hack?", back: "Edema is due to precapillary vasodilation (hydrostatic pressure), NOT heart failure. <strong>Do not give Lasix.</strong> Add an ACEi/ARB to dilate the post-capillary venule and resolve edema." },
-        { id: "clopidogrel", name: "Clopidogrel", class: "P2Y12 Inhibitor", system: "CVS", brands: ["Lowplat", "Noclot"], dose: "75mg OD", front: "Clopidogrel: The PPI Interaction Trap?", back: "Clopidogrel is a prodrug activated by <strong>CYP2C19</strong>. <strong>Omeprazole</strong> inhibits this enzyme, causing stent thrombosis. Always use <strong>Pantoprazole</strong> instead." },
-        { id: "atorvastatin", name: "Atorvastatin", class: "Statin", system: "CVS", brands: ["Lipiget", "Atorva"], dose: "10-80mg OD", front: "Statins: The 'Muscle Ache' Red Flag?", back: "Unexplained severe myalgia can indicate <strong>Rhabdomyolysis</strong>. Stop the drug and check CPK immediately to prevent acute tubular necrosis (AKI)." },
-        { id: "amiodarone", name: "Amiodarone", class: "Class III Antiarrhythmic", system: "CVS", brands: ["Cordarone"], dose: "Load then 100-400mg OD", front: "Amiodarone: 4 Major Organ Toxicities?", back: "<strong>1. Lungs:</strong> Pulmonary Fibrosis.<br><strong>2. Thyroid:</strong> Hypo/Hyper (contains Iodine).<br><strong>3. Liver:</strong> Hepatotoxicity.<br><strong>4. Eyes:</strong> Corneal micro-deposits." },
-        
-        // ENDOCRINE
-        { id: "metformin", name: "Metformin", class: "Biguanide", system: "Endocrine", brands: ["Glucophage", "Neodipar"], dose: "500mg OD/BD (Max 2g)", front: "Metformin: When to hold & fatal risk?", back: "Hold in AKI, Sepsis, Tissue Hypoxia, or IV Contrast. Risk: <strong>Lactic Acidosis</strong>." },
-        { id: "glibenclamide", name: "Glibenclamide", class: "Sulfonylurea", system: "Endocrine", brands: ["Daonil"], dose: "2.5mg OD", front: "Glibenclamide: Why is it deprecated?", back: "Long half-life & active metabolites. Causes <strong>prolonged, fatal hypoglycemia</strong> in the elderly or mild CKD. Replace with Glimepiride or Gliptins." },
-        { id: "carbimazole", name: "Carbimazole", class: "Thioamide", system: "Endocrine", brands: ["Neomercazole"], dose: "10-60mg/day", front: "Carbimazole: The 'Sore Throat' Warning?", back: "Risk of <strong>Agranulocytosis</strong>. Counsel patient: 'If you get a sudden severe sore throat and fever, stop the drug and get a STAT CBC.'" },
-        { id: "prednisolone", name: "Prednisolone", class: "Corticosteroid", system: "Endocrine", brands: ["Deltacortil"], dose: "1mg/kg/day", front: "Steroids: The 'Abrupt Cessation' Danger?", back: "Causes HPA Axis Suppression. Abrupt stopping leads to <strong>Adrenal Crisis</strong> (refractory hypotension/shock). Always taper slowly." },
-        
-        // GIT
-        { id: "pantoprazole", name: "Pantoprazole", class: "PPI", system: "GIT", brands: ["Zopent", "Protonol"], dose: "40mg OD", front: "PPIs: The 'ICU Pneumonia' Link?", back: "Prolonged IV PPIs alter gastric pH, allowing bacterial overgrowth and increasing the risk of <strong>Ventilator-Associated Pneumonia (VAP)</strong> and C. diff. De-prescribe when tolerating oral diet." },
-        { id: "metoclopramide", name: "Metoclopramide", class: "D2 Antagonist", system: "GIT", brands: ["Maxolon"], dose: "10mg TDS", front: "Metoclopramide: The 'Oculogyric Crisis' Antidote?", back: "Crosses BBB -> Extrapyramidal Symptoms (EPS) / Acute Dystonia. <strong>Antidote:</strong> IV Benztropine or Diphenhydramine." },
-        { id: "lactulose", name: "Lactulose", class: "Osmotic Laxative", system: "GIT", brands: ["Duphalac"], dose: "15-30ml 8h", front: "Lactulose in Hepatic Encephalopathy: Titration Goal?", back: "Converts NH3 to NH4+ (trap). Titrate dose to achieve exactly <strong>2 to 3 soft stools a day</strong>. More causes dehydration -> worsens encephalopathy." },
-        
-        // RESPIRATORY
-        { id: "salbutamol", name: "Salbutamol", class: "SABA", system: "Respiratory", brands: ["Aerolin", "Salbo"], dose: "2 puffs 4-6h", front: "Salbutamol: The 'Asthma Hypokalemia' Trap?", back: "High-dose continuous nebulizers drive Potassium into cells -> <strong>Severe Hypokalemia</strong> -> Fatal Arrhythmias. Check U&Es in severe asthma." },
-        { id: "theophylline", name: "Theophylline", class: "Methylxanthine", system: "Respiratory", brands: ["Theograd"], dose: "½ tab TDS", front: "Theophylline: The Ciprofloxacin Interaction?", back: "Narrow therapeutic index. Cipro inhibits its metabolism -> <strong>Theophylline Toxicity</strong> (Intractable vomiting, Seizures, Arrhythmias)." },
-        
-        // CNS
-        { id: "phenytoin", name: "Phenytoin", class: "Na+ Channel Blocker", system: "CNS", brands: ["Epilantin"], dose: "Load then maintain", front: "Phenytoin: IV Administration Rules?", back: "<strong>1.</strong> NEVER mix with Dextrose (precipitates). Use NS.<br><strong>2.</strong> Use inline filter.<br><strong>3.</strong> Flush line to prevent 'Purple Glove Syndrome' (tissue necrosis)." }    ];
+        // --- 1. ANALGESICS ---
+        { id: "paracetamol", name: "Paracetamol", class: "Non-Opioid Analgesic", system: "1. Analgesics", brands: ["Panadol", "Calpol", "Disprol"], dose: "500mg-1g 6-8h (Max 4g)", front: "Paracetamol: Max Dose, Toxicity & Antidote?", back: "<b>Ind:</b> Mild-mod pain, Fever (Dengue/Malaria).<br><b>CI:</b> Severe hepatic impairment.<br><b>SEs:</b> Hepatotoxicity in overdose (NAPQI).<br><b>Pearl:</b> Antidote is N-Acetylcysteine. Beware hidden OTC combos.", combos: [
+            { name: "Panadol Extra (+ Caffeine)", ind: "Tension headaches, Migraine adjunct", se: "Insomnia, Tachycardia, Anxiety" },
+            { name: "Wilgesic / Nuberol Forte (+ Orphenadrine)", ind: "Musculoskeletal spasm, Back pain", se: "Anticholinergic (Dry mouth, BPH retention, Glaucoma)" },
+            { name: "Codogesic (+ Codeine)", ind: "Moderate pain, Dry cough", se: "Severe constipation, Dependence, Respiratory depression" }
+        ]},
+        { id: "ibuprofen", name: "Ibuprofen", class: "NSAID", system: "1. Analgesics", brands: ["Brufen", "Actifen"], dose: "200-400mg TDS (Max 1.2g)", front: "Ibuprofen: The 'Triple Whammy' interaction?", back: "<b>Ind:</b> Inflammatory pain, Dysmenorrhea, Gout.<br><b>CI:</b> Active PUD, Severe CKD, Aspirin-sensitive asthma.<br><b>SEs:</b> GI Bleed, AKI, Fluid retention.<br><b>Pearl:</b> NSAID + ACEi + Diuretic = Guaranteed AKI.", combos: [] },
+        { id: "diclofenac", name: "Diclofenac", class: "NSAID", system: "1. Analgesics", brands: ["Voren", "Artifen", "Dicloran"], dose: "25-50mg BD (Max 150mg)", front: "Diclofenac: The Renal Colic Hack?", back: "<b>Ind:</b> Renal colic (DOC), Acute gout, Post-op pain.<br><b>CI:</b> CKD, CABG surgery, Active bleeding.<br><b>SEs:</b> High CV risk, Nephrotoxicity, GI ulcers.<br><b>Pearl:</b> Superior to opioids for ureteric colic (halts PG-mediated spasm). Check Cr first!", combos: [] },
+        { id: "naproxen", name: "Naproxen", class: "NSAID", system: "1. Analgesics", brands: ["Synflex", "Flexin"], dose: "250-500mg BD (Max 1g)", front: "Naproxen: Cardiovascular safety profile?", back: "<b>Ind:</b> Musculoskeletal pain, Dysmenorrhea.<br><b>CI:</b> Severe CKD, Active PUD.<br><b>SEs:</b> GI bleeding, Fluid retention.<br><b>Pearl:</b> Considered the safest NSAID for patients with high cardiovascular risk.", combos: [] },
+        { id: "tramadol", name: "Tramadol", class: "Atypical Opioid / SNRI", system: "1. Analgesics", brands: ["Tramal"], dose: "50-100mg 6h (Max 400mg)", front: "Tramadol: 2 Major Neurological Red Flags?", back: "<b>Ind:</b> Moderate to severe nociceptive pain.<br><b>CI:</b> Epilepsy, Acute alcohol intoxication, MAOIs.<br><b>SEs:</b> Seizures, Serotonin Syndrome, Nausea.<br><b>Pearl:</b> SNRI activity. Fatal if combined with SSRIs (Hyperthermia, Clonus).", combos: [] },
+        { id: "tizanidine", name: "Tizanidine", class: "Muscle Relaxant (Alpha-2)", system: "1. Analgesics", brands: ["Ternelin", "Movax"], dose: "2-4mg TDS (Max 36mg)", front: "Tizanidine: The Ciprofloxacin Clash?", back: "<b>Ind:</b> Acute muscle spasms, Spasticity.<br><b>CI:</b> Concurrent Ciprofloxacin use.<br><b>SEs:</b> Profound hypotension, Severe sedation, Dry mouth.<br><b>Pearl:</b> CYP1A2 substrate. Cipro inhibits it -> toxic accumulation -> coma/hypotension.", combos: [] },
+        { id: "ketorolac", name: "Ketorolac", class: "Parenteral NSAID", system: "1. Analgesics", brands: ["Toradol"], dose: "15-30mg IV/IM 6-8h", front: "Ketorolac: The 5-Day Hard Stop?", back: "<b>Ind:</b> Short-term severe acute pain (Post-op, Renal colic).<br><b>CI:</b> Pre-op use, Labor/Delivery, CKD, PUD.<br><b>SEs:</b> Catastrophic GI bleed, AKI, Surgical site bleeding.<br><b>Pearl:</b> NEVER use for >5 days. Efficacy = Morphine, Toxicity = Mega-dose NSAID.", combos: [] },
+        { id: "nimesulide", name: "Nimesulide", class: "NSAID (Deprecated)", system: "1. Analgesics", brands: ["Nims", "Unix"], dose: "100mg BD", front: "Nimesulide: Why is it deprecated?", back: "<b>Ind:</b> Acute pain (Historically).<br><b>CI:</b> ANY liver impairment, Pediatrics.<br><b>SEs:</b> Fulminant Hepatotoxicity.<br><b>Pearl:</b> Banned globally. Avoid in Pakistan where Hep B/C/NAFLD are endemic.", combos: [] },
 
+        // --- 2. ANTIBIOTICS (ORAL) ---
+        { id: "amoxicillin", name: "Amoxicillin", class: "Penicillin", system: "2. Antibiotics (Oral)", brands: ["Amoxil", "Wymox"], dose: "250-500mg 8h", front: "Amoxicillin: The EBV Rash?", back: "<b>Ind:</b> Otitis media, Strep throat, H. pylori.<br><b>CI:</b> Penicillin anaphylaxis.<br><b>SEs:</b> Diarrhea, Maculopapular rash.<br><b>Pearl:</b> If given during EBV/Mononucleosis, causes a classic non-allergic maculopapular rash.", combos: [
+            { name: "Augmentin / Calamox (+ Clavulanic Acid)", ind: "Bites, Sinusitis, Diabetic foot, CAP", se: "Cholestatic jaundice (Clavulanate), C. diff colitis" }
+        ]},
+        { id: "cefixime", name: "Cefixime", class: "3rd Gen Cephalosporin", system: "2. Antibiotics (Oral)", brands: ["Cefspan", "Cefiget"], dose: "200-400mg OD/BD", front: "Cefixime: Major coverage gap?", back: "<b>Ind:</b> Uncomplicated UTI, Gonorrhea, Typhoid.<br><b>CI:</b> Severe cephalosporin allergy.<br><b>SEs:</b> Diarrhea, C. diff.<br><b>Pearl:</b> NO coverage against Staphylococci or Enterococci. Do not use for skin infections.", combos: [] },
+        { id: "ciprofloxacin", name: "Ciprofloxacin", class: "Fluoroquinolone", system: "2. Antibiotics (Oral)", brands: ["Ciprin", "Novidat"], dose: "250-750mg BD", front: "Ciprofloxacin: 3 Black-Box Warnings?", back: "<b>Ind:</b> Complicated UTI, Prostatitis, Pseudomonas.<br><b>CI:</b> Pregnancy, Myasthenia Gravis, Prolonged QT.<br><b>SEs:</b> Tendon rupture, Aortic aneurysm, QT prolongation.<br><b>Pearl:</b> Avoid in uncomplicated infections due to collateral damage.", combos: [] },
+        { id: "azithromycin", name: "Azithromycin", class: "Macrolide", system: "2. Antibiotics (Oral)", brands: ["Azomax"], dose: "500mg OD x 3 days", front: "Azithromycin: Role in XDR Typhoid?", back: "<b>Ind:</b> Atypical pneumonia, Chlamydia, XDR Typhoid.<br><b>CI:</b> Prolonged QT, Macrolide allergy.<br><b>SEs:</b> GI upset, QT prolongation.<br><b>Pearl:</b> Drug of choice for XDR Salmonella Typhi in Pakistan.", combos: [] },
+        { id: "clarithromycin", name: "Clarithromycin", class: "Macrolide", system: "2. Antibiotics (Oral)", brands: ["Klaricid", "Rithmo"], dose: "250-500mg BD", front: "Clarithromycin: The CYP3A4 Inhibitor?", back: "<b>Ind:</b> H. pylori eradication, CAP, MAC.<br><b>CI:</b> QT prolongation, concurrent Statins/Ergotamines.<br><b>SEs:</b> Metallic taste, GI upset, Drug interactions.<br><b>Pearl:</b> Potent CYP3A4 inhibitor. Will cause Statin-induced Rhabdomyolysis if combined.", combos: [] },
+        { id: "metronidazole", name: "Metronidazole", class: "Nitroimidazole", system: "2. Antibiotics (Oral)", brands: ["Flagyl", "Abozole"], dose: "400mg 8h", front: "Metronidazole: The Disulfiram Reaction?", back: "<b>Ind:</b> Anaerobes, Amoebiasis, Giardiasis, C. diff.<br><b>CI:</b> 1st Trimester pregnancy, Alcohol use.<br><b>SEs:</b> Metallic taste, Disulfiram-like reaction with alcohol.<br><b>Pearl:</b> Counsel patient strictly to avoid alcohol during and 48h after therapy.", combos: [] },
+        { id: "doxycycline", name: "Doxycycline", class: "Tetracycline", system: "2. Antibiotics (Oral)", brands: ["Vibramycin"], dose: "100mg OD/BD", front: "Doxycycline: Photosensitivity & Teeth?", back: "<b>Ind:</b> Acne, Atypicals, Tick-borne, Malaria prophylaxis.<br><b>CI:</b> Pregnancy, Children <8 yrs.<br><b>SEs:</b> Photosensitivity, Esophagitis (if taken lying down).<br><b>Pearl:</b> Causes permanent tooth discoloration in children. Take with full glass of water, stay upright.", combos: [] },
+
+        // --- 3. ANTIBIOTICS (PARENTERAL) ---
+        { id: "ceftriaxone", name: "Ceftriaxone", class: "3rd Gen Cephalosporin", system: "3. Antibiotics (IV)", brands: ["Rocephin", "Inocef"], dose: "1-2g IV OD/BD", front: "Ceftriaxone: The Calcium Incompatibility?", back: "<b>Ind:</b> CAP, Pyelonephritis, Meningitis, Typhoid.<br><b>CI:</b> Neonates (hyperbilirubinemia), concurrent IV Calcium.<br><b>SEs:</b> Biliary sludging, C. diff.<br><b>Pearl:</b> NEVER mix with Ringer's Lactate -> fatal precipitates in lungs/kidneys.", combos: [] },
+        { id: "piptazo", name: "Piperacillin-Tazobactam", class: "Antipseudomonal Penicillin", system: "3. Antibiotics (IV)", brands: ["Tazocin", "Tanzo"], dose: "4.5g IV 8h", front: "Pip-Tazo: The Prolonged Infusion Hack?", back: "<b>Ind:</b> HAP, Febrile neutropenia, Intra-abdominal sepsis.<br><b>CI:</b> Penicillin anaphylaxis.<br><b>SEs:</b> Hypokalemia, Platelet dysfunction.<br><b>Pearl:</b> Infuse over 4 hours (extended) to maximize time > MIC for Pseudomonas.", combos: [] },
+        { id: "meropenem", name: "Meropenem", class: "Carbapenem", system: "3. Antibiotics (IV)", brands: ["Meronem", "Merowin"], dose: "1g IV 8h", front: "Meropenem: The Renal Seizure Risk?", back: "<b>Ind:</b> ESBL sepsis, MDR Gram-negatives, Meningitis.<br><b>CI:</b> Carbapenem allergy.<br><b>SEs:</b> Seizures (if not renally adjusted), C. diff.<br><b>Pearl:</b> Must strictly adjust dose for CrCl < 50 to prevent CNS accumulation.", combos: [] },
+        { id: "vancomycin", name: "Vancomycin", class: "Glycopeptide", system: "3. Antibiotics (IV)", brands: ["Vancocin"], dose: "15-20mg/kg IV BD", front: "Vancomycin: Red Man Syndrome?", back: "<b>Ind:</b> MRSA, severe C. diff (PO), Endocarditis.<br><b>CI:</b> Hypersensitivity.<br><b>SEs:</b> Nephrotoxicity, Ototoxicity, Red Man Syndrome.<br><b>Pearl:</b> Red Man is histamine release, not allergy. Prevent by infusing over >1 hour.", combos: [] },
+        { id: "amikacin", name: "Amikacin", class: "Aminoglycoside", system: "3. Antibiotics (IV)", brands: ["Grasil"], dose: "15mg/kg IV OD", front: "Amikacin: Dosing Hack & Toxicity?", back: "<b>Ind:</b> Synergy for severe Gram-negatives, MDR TB.<br><b>CI:</b> Pregnancy, Myasthenia Gravis.<br><b>SEs:</b> Irreversible Ototoxicity, Nephrotoxicity.<br><b>Pearl:</b> Once-daily dosing is LESS nephrotoxic (allows renal washout) and MORE bactericidal.", combos: [] },
+
+        // --- 4. ANTI-TUBERCULOUS ---
+        { id: "hrze", name: "HRZE (Anti-TB)", class: "Fixed Dose Combo", system: "4. Anti-TB", brands: ["Myrin-P Forte", "Rifa-4"], dose: "Weight-based OD", front: "HRZE: Match the drug to its classic toxicity?", back: "<b>Ind:</b> Active Tuberculosis (Intensive Phase).<br><b>CI:</b> Severe hepatic impairment (relative).<br><b>SEs:</b> Hepatotoxicity, Neuropathy, Optic neuritis.<br><b>Pearl:</b> RIF=Red/Orange urine, INH=Neuropathy (give B6), PZA=Gout, EMB=Color blindness.", combos: [] },
+
+        // --- 5. CVS & ANTIHYPERTENSIVES ---
+        { id: "lisinopril", name: "Lisinopril", class: "ACE Inhibitor", system: "5. CVS / Antihypertensives", brands: ["Zestril", "Ziscar"], dose: "5-10mg OD (Max 40)", front: "ACE Inhibitors: The 'Dry Cough' mechanism?", back: "<b>Ind:</b> HTN, HFrEF, Diabetic Nephropathy.<br><b>CI:</b> Pregnancy, Bilateral Renal Artery Stenosis, Angioedema.<br><b>SEs:</b> Dry cough, Hyperkalemia, AKI.<br><b>Pearl:</b> Cough is due to Bradykinin. Switch to ARB (Losartan) if intolerable.", combos: [
+            { name: "Zestoretic (+ HCTZ)", ind: "Resistant Hypertension", se: "Hypokalemia, Hyperuricemia (Gout), Hyponatremia" }
+        ]},
+        { id: "losartan", name: "Losartan", class: "ARB", system: "5. CVS / Antihypertensives", brands: ["Xavor", "Eziday"], dose: "50mg OD (Max 100)", front: "Losartan: Uric Acid Benefit?", back: "<b>Ind:</b> HTN, HFrEF, Diabetic Nephropathy.<br><b>CI:</b> Pregnancy, Bilateral RAS.<br><b>SEs:</b> Hyperkalemia, AKI, Dizziness.<br><b>Pearl:</b> Unlike other ARBs, Losartan is mildly URICOSURIC (lowers uric acid). Good for HTN + Gout.", combos: [
+            { name: "Co-Eziday / Xavor DIU (+ HCTZ)", ind: "Resistant Hypertension", se: "Hypokalemia, Hyponatremia. (Note: HCTZ negates Losartan's uricosuric benefit)" }
+        ]},
+        { id: "amlodipine", name: "Amlodipine", class: "DHP CCB", system: "5. CVS / Antihypertensives", brands: ["Norvasc", "Amodip"], dose: "2.5-5mg OD (Max 10)", front: "Amlodipine: Pedal Edema Hack?", back: "<b>Ind:</b> HTN, Angina, Raynaud's.<br><b>CI:</b> Severe aortic stenosis, Cardiogenic shock.<br><b>SEs:</b> Pedal edema, Flushing, Reflex tachycardia.<br><b>Pearl:</b> Edema is hydrostatic, NOT heart failure. Do NOT give Lasix. Add ACEi/ARB to fix.", combos: [] },
+        { id: "metoprolol", name: "Metoprolol", class: "Cardioselective Beta-Blocker", system: "5. CVS / Antihypertensives", brands: ["Mepressor", "Merol"], dose: "25-50mg BD (Max 200)", front: "Metoprolol: The Asthma/COPD Rule?", back: "<b>Ind:</b> Post-MI, HFrEF, Rate control (AFib), Angina.<br><b>CI:</b> Severe bradycardia, 2nd/3rd degree AV block, Decompensated HF.<br><b>SEs:</b> Fatigue, Bradycardia, Masking hypoglycemia.<br><b>Pearl:</b> Beta-1 selective, but can still trigger bronchospasm in severe asthma at high doses.", combos: [] },
+        { id: "atorvastatin", name: "Atorvastatin", class: "Statin", system: "5. CVS / Lipids", brands: ["Lipiget", "Atorva"], dose: "10-80mg OD", front: "Statins: The 'Muscle Ache' Red Flag?", back: "<b>Ind:</b> ASCVD prevention, Post-ACS, Hyperlipidemia.<br><b>CI:</b> Active liver disease, Pregnancy.<br><b>SEs:</b> Myalgia, Rhabdomyolysis, Transaminitis.<br><b>Pearl:</b> Unexplained severe myalgia -> Stop drug & check CPK immediately to prevent AKI.", combos: [] },
+        { id: "clopidogrel", name: "Clopidogrel", class: "P2Y12 Inhibitor", system: "5. CVS / Antiplatelets", brands: ["Lowplat", "Noclot"], dose: "75mg OD", front: "Clopidogrel: The PPI Interaction Trap?", back: "<b>Ind:</b> Post-stent (DAPT), Post-MI, Stroke prevention.<br><b>CI:</b> Active pathological bleeding.<br><b>SEs:</b> Bleeding, TTP (rare).<br><b>Pearl:</b> Prodrug activated by CYP2C19. Omeprazole inhibits this -> stent thrombosis. Use Pantoprazole.", combos: [
+            { name: "Ascard Plus / Lowplat Plus (+ Aspirin)", ind: "Acute Coronary Syndrome, Post-PCI", se: "Increased GI bleeding risk. Ensure PPI cover (Pantoprazole)." }
+        ]},
+        { id: "amiodarone", name: "Amiodarone", class: "Class III Antiarrhythmic", system: "5. CVS / Antiarrhythmics", brands: ["Cordarone"], dose: "Load then 100-400mg OD", front: "Amiodarone: 4 Major Organ Toxicities?", back: "<b>Ind:</b> AFib, VT/VF, Structural heart disease arrhythmias.<br><b>CI:</b> Severe sinus node dysfunction, Iodine hypersensitivity.<br><b>SEs:</b> Pulmonary fibrosis, Thyroid dysfunction, Hepatotoxicity, Corneal deposits.<br><b>Pearl:</b> Half-life is 100 days. Baseline TFTs, LFTs, and CXR are mandatory.", combos: [] },
+
+        // --- 6. ENDOCRINE ---
+        { id: "metformin", name: "Metformin", class: "Biguanide", system: "6. Endocrine", brands: ["Glucophage", "Neodipar"], dose: "500mg OD/BD (Max 2g)", front: "Metformin: When to hold & fatal risk?", back: "<b>Ind:</b> T2DM, PCOS.<br><b>CI:</b> eGFR <30, Metabolic acidosis, Tissue hypoxia.<br><b>SEs:</b> GI upset, B12 deficiency, Lactic Acidosis.<br><b>Pearl:</b> Hold in AKI, Sepsis, or IV Contrast to prevent fatal Lactic Acidosis.", combos: [] },
+        { id: "glibenclamide", name: "Glibenclamide", class: "Sulfonylurea", system: "6. Endocrine", brands: ["Daonil"], dose: "2.5-5mg OD", front: "Glibenclamide: Why is it deprecated?", back: "<b>Ind:</b> T2DM (Historically).<br><b>CI:</b> Elderly, CKD, Hepatic impairment.<br><b>SEs:</b> Prolonged, severe hypoglycemia.<br><b>Pearl:</b> Active metabolites accumulate in CKD. Replace with Glimepiride or Gliptins.", combos: [] },
+        { id: "carbimazole", name: "Carbimazole", class: "Thioamide", system: "6. Endocrine", brands: ["Neomercazole"], dose: "10-60mg/day", front: "Carbimazole: The 'Sore Throat' Warning?", back: "<b>Ind:</b> Hyperthyroidism / Graves' disease.<br><b>CI:</b> Agranulocytosis history.<br><b>SEs:</b> Agranulocytosis, Rash, Hepatotoxicity.<br><b>Pearl:</b> Counsel: 'If sudden severe sore throat + fever, STOP drug & get STAT CBC.'", combos: [] },
+        { id: "prednisolone", name: "Prednisolone", class: "Corticosteroid", system: "6. Endocrine", brands: ["Deltacortil"], dose: "Variable (1mg/kg/day)", front: "Steroids: The 'Abrupt Cessation' Danger?", back: "<b>Ind:</b> Autoimmune, Asthma exacerbation, Croup.<br><b>CI:</b> Systemic fungal infections, Live vaccines.<br><b>SEs:</b> Hyperglycemia, Osteoporosis, Immunosuppression.<br><b>Pearl:</b> Causes HPA Axis Suppression. Abrupt stopping = Adrenal Crisis. Always taper.", combos: [] },
+
+        // --- 7. GIT ---
+        { id: "pantoprazole", name: "Pantoprazole", class: "PPI", system: "7. GIT", brands: ["Zopent", "Protonol"], dose: "40mg OD", front: "PPIs: The 'ICU Pneumonia' Link?", back: "<b>Ind:</b> GERD, PUD, GI Bleed, Stress ulcer prophylaxis.<br><b>CI:</b> Hypersensitivity.<br><b>SEs:</b> C. diff, Hypomagnesemia, VAP, Osteoporosis.<br><b>Pearl:</b> De-prescribe when tolerating oral diet. Prolonged IV use increases VAP risk.", combos: [] },
+        { id: "metoclopramide", name: "Metoclopramide", class: "D2 Antagonist", system: "7. GIT", brands: ["Maxolon"], dose: "10mg TDS", front: "Metoclopramide: The 'Oculogyric Crisis' Antidote?", back: "<b>Ind:</b> Nausea/Vomiting, Gastroparesis.<br><b>CI:</b> Bowel obstruction, Pheochromocytoma, Epilepsy.<br><b>SEs:</b> EPS, Acute Dystonia, Tardive dyskinesia.<br><b>Pearl:</b> Crosses BBB. Antidote for dystonia is IV Benztropine or Diphenhydramine.", combos: [] },
+        { id: "domperidone", name: "Domperidone", class: "Peripheral D2 Antagonist", system: "7. GIT", brands: ["Motilium"], dose: "10mg TDS", front: "Domperidone vs. Metoclopramide?", back: "<b>Ind:</b> Nausea/Vomiting, Gastroparesis.<br><b>CI:</b> Prolonged QT, GI hemorrhage/obstruction.<br><b>SEs:</b> Hyperprolactinemia (Galactorrhea), QT prolongation.<br><b>Pearl:</b> Does NOT cross BBB (no EPS). But blocks cardiac hERG -> QT prolongation.", combos: [] },
+        { id: "lactulose", name: "Lactulose", class: "Osmotic Laxative", system: "7. GIT", brands: ["Duphalac"], dose: "15-30ml 8h", front: "Lactulose in Hepatic Encephalopathy: Goal?", back: "<b>Ind:</b> Constipation, Hepatic Encephalopathy.<br><b>CI:</b> Galactosemia, Bowel obstruction.<br><b>SEs:</b> Bloating, Diarrhea, Dehydration.<br><b>Pearl:</b> Traps NH3 as NH4+. Titrate to exactly 2-3 soft stools/day. More = dehydration = worse HE.", combos: [] },
+        { id: "loperamide", name: "Loperamide", class: "Opioid Agonist (Gut)", system: "7. GIT", brands: ["Imodium"], dose: "2-4mg stat, then 2mg PRN", front: "Loperamide: The Toxic Megacolon Risk?", back: "<b>Ind:</b> Acute non-infectious diarrhea.<br><b>CI:</b> Dysentery (Bloody stools), C. diff, High fever.<br><b>SEs:</b> Constipation, Paralytic ileus.<br><b>Pearl:</b> NEVER use in infectious diarrhea. Traps bacteria/toxins -> Toxic Megacolon.", combos: [] },
+
+        // --- 8. ANTIHISTAMINES ---
+        { id: "cetirizine", name: "Cetirizine / Levocetirizine", class: "2nd Gen H1 Antagonist", system: "8. Antihistamines", brands: ["Rigix", "Neo-Sedil"], dose: "5-10mg OD", front: "Cetirizine: Sedation profile?", back: "<b>Ind:</b> Allergic rhinitis, Urticaria.<br><b>CI:</b> Severe CKD (adjust dose).<br><b>SEs:</b> Mild sedation, Dry mouth.<br><b>Pearl:</b> Crosses BBB slightly. Good for night-time allergies to help patient sleep.", combos: [] },
+        { id: "fexofenadine", name: "Fexofenadine", class: "2nd Gen H1 Antagonist", system: "8. Antihistamines", brands: ["Fexet"], dose: "60mg BD or 180mg OD", front: "Fexofenadine: The Non-Sedating Choice?", back: "<b>Ind:</b> Allergic rhinitis, Urticaria.<br><b>CI:</b> Hypersensitivity.<br><b>SEs:</b> Headache, rare.<br><b>Pearl:</b> Does NOT cross BBB. Prescribe for daytime professionals, drivers, or students.", combos: [] },
+
+        // --- 9. RESPIRATORY ---
+        { id: "salbutamol", name: "Salbutamol", class: "SABA", system: "9. Respiratory", brands: ["Aerolin", "Salbo"], dose: "2 puffs 4-6h / Neb 2.5-5mg", front: "Salbutamol: The 'Asthma Hypokalemia' Trap?", back: "<b>Ind:</b> Acute bronchospasm, Asthma/COPD exacerbation.<br><b>CI:</b> Hypersensitivity, caution in arrhythmias.<br><b>SEs:</b> Tremor, Tachycardia, Hypokalemia.<br><b>Pearl:</b> High-dose nebs drive K+ into cells -> Severe Hypokalemia -> Fatal arrhythmias.", combos: [
+            { name: "Ventide (+ Beclomethasone)", ind: "Maintenance Asthma therapy", se: "Oral candidiasis (rinse mouth after use)" },
+            { name: "Salmicort (+ Salmeterol/Fluticasone)", ind: "Severe Asthma / COPD", se: "Pneumonia risk in COPD, Thrush" }
+        ]},
+        { id: "ipratropium", name: "Ipratropium", class: "SAMA", system: "9. Respiratory", brands: ["Atem", "Atrovent"], dose: "2 puffs 6h / Neb 0.25mg", front: "Ipratropium: The Nebulizer Mask Danger?", back: "<b>Ind:</b> COPD, Asthma adjunct.<br><b>CI:</b> Narrow-angle glaucoma (caution).<br><b>SEs:</b> Dry mouth, Urinary retention.<br><b>Pearl:</b> If nebulizer mask leaks into eyes -> pupil dilation -> Acute Narrow-Angle Glaucoma.", combos: [] },
+        { id: "montelukast", name: "Montelukast", class: "Leukotriene Antagonist", system: "9. Respiratory", brands: ["Montiget", "Montika"], dose: "10mg HS", front: "Montelukast: The FDA Black-Box Warning?", back: "<b>Ind:</b> Asthma prophylaxis, Allergic rhinitis.<br><b>CI:</b> Hypersensitivity.<br><b>SEs:</b> Neuropsychiatric events, Headache.<br><b>Pearl:</b> Can cause vivid nightmares, agitation, depression, suicidal ideation. Counsel parents.", combos: [] },
+
+        // --- 10. CNS ---
+        { id: "phenytoin", name: "Phenytoin", class: "Na+ Channel Blocker", system: "10. CNS", brands: ["Epilantin", "Epigran"], dose: "Load then 300mg OD", front: "Phenytoin: IV Administration Rules?", back: "<b>Ind:</b> Status epilepticus, Seizure prophylaxis.<br><b>CI:</b> Sinus bradycardia, AV block, Porphyria.<br><b>SEs:</b> Gingival hyperplasia, Hirsutism, Nystagmus, Zero-order kinetics.<br><b>Pearl:</b> IV: NEVER mix with Dextrose (precipitates). Use NS + inline filter. Flush to prevent Purple Glove Syndrome.", combos: [] },
+        { id: "valproate", name: "Sodium Valproate", class: "Broad Spectrum Antiepileptic", system: "10. CNS", brands: ["Epival"], dose: "750-2000mg/day", front: "Valproate: 3 Major Red Flags?", back: "<b>Ind:</b> Generalized seizures, Bipolar, Migraine prophylaxis.<br><b>CI:</b> Pregnancy (Neural tube defects), Hepatic disease.<br><b>SEs:</b> Weight gain, Tremor, Hair loss, Pancreatitis, Hepatotoxicity.<br><b>Pearl:</b> Avoid in women of childbearing age if possible. Monitor LFTs.", combos: [] }
+    ];
     // ==========================================
     // WARD VIEW LOGIC
     // ==========================================
@@ -700,212 +735,56 @@
         document.body.setAttribute('data-theme', 'dark');
         document.getElementById('themeToggle').classList.add('active');
     }
-</script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Elite Formulary</title>
-    <meta name="theme-color" content="#0A192F">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --navy: #0A192F; --gold: #C89F59; --bg: #F9F8F6; --card: #FFFFFF;
-            --text: #2D3748; --muted: #64748B; --line: #E2E0D8;
-            --success: #276749; --danger: #8B2C2C;
-        }
-        [data-theme="dark"] {
-            --bg: #0F172A; --card: #1E293B; --text: #E2E8F0; --muted: #94A3B8; --line: #334155;
-            --navy: #93C5FD; --gold: #FBBF24;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding-bottom: 80px; transition: 0.3s; overscroll-behavior: none; }
-        
-        header { background: var(--navy); color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        header h1 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; letter-spacing: 0.1em; text-transform: uppercase; }
-        header p { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 4px; }
-
-        .view { display: none; padding: 20px; max-width: 800px; margin: 0 auto; }
-        .view.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .search-bar { width: 100%; padding: 14px 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--text); font-size: 1rem; margin-bottom: 20px; outline: none; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        
-        .system-header { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--navy); margin: 25px 0 15px; border-bottom: 2px solid var(--gold); padding-bottom: 5px; display: flex; justify-content: space-between; align-items: center; }
-        .system-header span { font-family: 'Inter', sans-serif; font-size: 0.7rem; background: var(--gold); color: white; padding: 4px 8px; border-radius: 20px; font-weight: 700; }
-
-        .drug-card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .drug-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 5px; }
-        .drug-card .class { font-size: 0.75rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 15px; display: block; }
-        .drug-card h4 { font-size: 0.75rem; text-transform: uppercase; color: var(--muted); margin: 15px 0 8px; letter-spacing: 0.05em; }
-        .drug-card p, .drug-card ul { font-family: 'Lora', serif; font-size: 0.95rem; line-height: 1.6; }
-        .drug-card ul { padding-left: 20px; }
-        .brands { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-        .brand-tag { background: rgba(10,25,47,0.05); padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 500; color: var(--text); border: 1px solid var(--line); }
-        [data-theme="dark"] .brand-tag { background: rgba(255,255,255,0.05); }
-        
-        .alert { background: rgba(139,44,44,0.05); border-left: 3px solid var(--danger); padding: 10px; font-size: 0.85rem; color: var(--danger); margin-top: 10px; border-radius: 4px; }
-        .pearl { background: rgba(200,159,89,0.08); border-left: 3px solid var(--gold); padding: 10px; font-size: 0.85rem; color: var(--navy); font-style: italic; margin-top: 10px; border-radius: 4px; }
-        [data-theme="dark"] .pearl { color: var(--gold); }
-
-        .notes-area { width: 100%; min-height: 50px; background: rgba(10,25,47,0.02); border: 1px dashed var(--line); border-radius: 8px; padding: 10px; font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text); resize: vertical; outline: none; margin-top: 10px; }
-        .notes-area:focus { border-color: var(--gold); border-style: solid; }
-        /* Anki SRS View */
-        .anki-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; }
-        .flashcard { width: 100%; max-width: 500px; height: 350px; perspective: 1000px; margin-bottom: 30px; cursor: pointer; }
-        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
-        .flashcard.flipped .card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 16px; display: flex; align-items: center; justify-content: center; padding: 30px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); border: 1px solid var(--line); }
-        .card-front { background: var(--navy); color: white; font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; line-height: 1.4; }
-        .card-back { background: var(--card); color: var(--text); transform: rotateY(180deg); font-family: 'Lora', serif; font-size: 1.05rem; line-height: 1.6; text-align: left; overflow-y: auto; }
-        .card-back strong { color: var(--navy); }
-        [data-theme="dark"] .card-back strong { color: var(--gold); }
-        
-        .anki-controls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; max-width: 500px; }
-        .anki-btn { padding: 15px 5px; border: none; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: 0.2s; color: white; }
-        .anki-btn:active { transform: scale(0.95); }
-        .btn-again { background: var(--danger); }
-        .btn-hard { background: #D97706; }
-        .btn-good { background: var(--success); }
-        .btn-easy { background: var(--navy); }
-        
-        .anki-stats { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; text-align: center; font-weight: 600; }
-        .anki-empty { text-align: center; color: var(--muted); font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-style: italic; }
-
-        /* Settings View */
-        .setting-item { background: var(--card); padding: 20px; border-radius: 12px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--line); }
-        .toggle { position: relative; width: 50px; height: 28px; background: var(--line); border-radius: 14px; cursor: pointer; transition: 0.3s; }
-        .toggle.active { background: var(--gold); }
-        .toggle::after { content: ''; position: absolute; width: 22px; height: 22px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: 0.3s; }
-        .toggle.active::after { left: 25px; }
-        .reset-btn { background: var(--danger); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; }
-
-        /* Bottom Navigation */
-        nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--card); border-top: 1px solid var(--line); display: flex; justify-content: space-around; padding: 12px 0; z-index: 100; box-shadow: 0 -4px 15px rgba(0,0,0,0.05); padding-bottom: max(12px, env(safe-area-inset-bottom)); }
-        .nav-btn { background: none; border: none; color: var(--muted); font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer; }
-        .nav-btn.active { color: var(--gold); }
-        .nav-btn svg { width: 24px; height: 24px; fill: currentColor; }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>Elite Formulary</h1>
-        <p>Offline Clinical OS & Anki SRS</p>
-    </header>
-
-    <!-- WARD VIEW -->
-    <div id="ward-view" class="view active">
-        <input type="text" class="search-bar" id="searchInput" placeholder="Search drugs, brands, systems...">
-        <div id="drugList"></div>
-    </div>
-    <!-- ANKI SRS VIEW -->
-    <div id="study-view" class="view">
-        <div class="anki-container">
-            <div class="anki-stats" id="ankiStats">Loading Deck...</div>
-            <div class="flashcard" id="flashcard" onclick="flipCard()">
-                <div class="card-inner">
-                    <div class="card-front" id="cardFront">Tap to Start</div>
-                    <div class="card-back" id="cardBack"></div>
-                </div>
-            </div>
-            <div class="anki-controls" id="ankiControls" style="display: none;">
-                <button class="anki-btn btn-again" onclick="rateCard(1)">Again<br><small><1m</small></button>
-                <button class="anki-btn btn-hard" onclick="rateCard(2)">Hard<br><small>10m</small></button>
-                <button class="anki-btn btn-good" onclick="rateCard(3)">Good<br><small>1d</small></button>
-                <button class="anki-btn btn-easy" onclick="rateCard(4)">Easy<br><small>3d</small></button>
-            </div>
-            <div class="anki-empty" id="ankiEmpty" style="display:none;">🎉 You're all caught up!<br><span style="font-size: 1rem; font-family: 'Inter', sans-serif;">Check back tomorrow.</span></div>
-        </div>
-    </div>
-
-    <!-- SETTINGS VIEW -->
-    <div id="settings-view" class="view">
-        <h2 style="font-family: 'Cormorant Garamond', serif; color: var(--navy); margin-bottom: 20px;">Preferences</h2>
-        <div class="setting-item">
-            <span>Night Shift (Dark Mode)</span>
-            <div class="toggle" id="themeToggle" onclick="toggleTheme()"></div>
-        </div>
-        <div class="setting-item">
-            <span>Reset Anki Progress</span>
-            <button class="reset-btn" onclick="resetAnki()">Reset</button>
-        </div>
-        <p style="margin-top: 40px; font-size: 0.8rem; color: var(--muted); text-align: center; line-height: 1.6;">Elite Formulary v2.0<br>Built for the Top 0.1% House Officers.<br>Data sourced from National Formulary & Elite Clinical Pearls.</p>
-    </div>
-
-    <!-- BOTTOM NAV -->
-    <nav>
-        <button class="nav-btn active" onclick="switchView('ward', this)">
-            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>
-            Ward
-        </button>
-        <button class="nav-btn" onclick="switchView('study', this)">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-            Anki
-        </button>
-        <button class="nav-btn" onclick="switchView('settings', this)">
-            <svg viewBox="0 0 24 24"><path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.06-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.73,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.06,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.43-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.49-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/></svg>
-            Settings
-        </button>
-    </nav>
 <script>
     // ==========================================
-    // THE MASTER DATABASE (From PDF + Elite Pearls)
+    // BULLETPROOF STORAGE (Prevents Crashes)
+    // ==========================================
+    const vault = {
+        get: (key) => { try { return localStorage.getItem(key); } catch(e) { return null; } },
+        set: (key, val) => { try { localStorage.setItem(key, val); } catch(e) { console.warn('Storage blocked'); } },
+        remove: (key) => { try { localStorage.removeItem(key); } catch(e) {} }
+    };
+
+    // ==========================================
+    // THE MASTER DATABASE 
     // ==========================================
     const drugDatabase = [
-        // ANALGESICS
         { id: "paracetamol", name: "Paracetamol", class: "Non-Opioid Analgesic", system: "Analgesics", brands: ["Panadol", "Calpol", "Disprol"], dose: "500mg-1g 6-8h (Max 4g)", front: "Paracetamol: Max Dose, Toxicity & Antidote?", back: "<strong>Max:</strong> 4g/day.<br><strong>Tox:</strong> NAPQI -> Hepatic failure.<br><strong>Antidote:</strong> N-Acetylcysteine.<br><strong>Pearl:</strong> Drug of choice in Dengue. Beware hidden OTC combos." },
-        { id: "ibuprofen", name: "Ibuprofen", class: "NSAID", system: "Analgesics", brands: ["Brufen", "Actifen"], dose: "200-400mg TDS", front: "Ibuprofen: The 'Triple Whammy' interaction?", back: "<strong>NSAID + ACEi/ARB + Diuretic</strong><br>Guarantees Acute Kidney Injury by collapsing the glomerular filtration gradient (Afferent constriction + Efferent dilation + Volume depletion)." },
-        { id: "diclofenac", name: "Diclofenac", class: "NSAID", system: "Analgesics", brands: ["Voren", "Artifen", "Dicloran"], dose: "25-50mg BD", front: "Diclofenac: The Renal Colic Hack?", back: "Superior to opioids for ureteric colic because it halts prostaglandin-mediated ureteric spasm and renal capsular stretch. <em>Must check Creatinine first!</em>" },
+        { id: "ibuprofen", name: "Ibuprofen", class: "NSAID", system: "Analgesics", brands: ["Brufen", "Actifen"], dose: "200-400mg TDS", front: "Ibuprofen: The 'Triple Whammy' interaction?", back: "<strong>NSAID + ACEi/ARB + Diuretic</strong><br>Guarantees Acute Kidney Injury by collapsing the glomerular filtration gradient." },
+        { id: "diclofenac", name: "Diclofenac", class: "NSAID", system: "Analgesics", brands: ["Voren", "Artifen", "Dicloran"], dose: "25-50mg BD", front: "Diclofenac: The Renal Colic Hack?", back: "Superior to opioids for ureteric colic because it halts prostaglandin-mediated ureteric spasm. <em>Must check Creatinine first!</em>" },
         { id: "tramadol", name: "Tramadol", class: "Atypical Opioid / SNRI", system: "Analgesics", brands: ["Tramal"], dose: "50-100mg 6h (Max 400mg)", front: "Tramadol: 2 Major Neurological Red Flags?", back: "<strong>1. Seizures:</strong> Lowers threshold. Avoid in epilepsy.<br><strong>2. Serotonin Syndrome:</strong> SNRI activity. Fatal if combined with SSRIs (Hyperthermia, Clonus)." },
         { id: "tizanidine", name: "Tizanidine", class: "Muscle Relaxant (Alpha-2)", system: "Analgesics", brands: ["Ternelin", "Movax"], dose: "2-4mg TDS", front: "Tizanidine: The Ciprofloxacin Clash?", back: "Tizanidine is metabolized by CYP1A2. <strong>Ciprofloxacin</strong> inhibits this. Co-prescribing causes toxic Tizanidine accumulation leading to profound hypotension and coma." },
-        
-        // ANTIBIOTICS
         { id: "augmentin", name: "Co-amoxiclav", class: "Penicillin + BLI", system: "Antibiotics", brands: ["Augmentin", "Calamox"], dose: "625mg TDS / 1g BD", front: "Augmentin: Classic Hepatotoxicity Pattern?", back: "<strong>Cholestatic Jaundice:</strong> The Clavulanic acid causes idiosyncratic cholestatic hepatitis, especially in elderly males on prolonged courses (>2 weeks)." },
         { id: "ceftriaxone", name: "Ceftriaxone", class: "3rd Gen Cephalosporin", system: "Antibiotics", brands: ["Rocephin", "Inocef"], dose: "1-2g IV OD/BD", front: "Ceftriaxone: Major IV incompatibility & Neonatal risk?", back: "<strong>Never mix with Calcium</strong> (e.g., Ringer's Lactate) -> fatal precipitates in lungs/kidneys. Avoid in neonates (biliary sludging & kernicterus)." },
         { id: "ciprofloxacin", name: "Ciprofloxacin", class: "Fluoroquinolone", system: "Antibiotics", brands: ["Ciprin", "Novidat"], dose: "250-750mg BD", front: "Ciprofloxacin: 3 Major Black-Box Warnings?", back: "<strong>1. Tendon Rupture</strong> (Achilles).<br><strong>2. QT Prolongation</strong> (Arrhythmia).<br><strong>3. Aortic Aneurysm</strong> rupture. Avoid in uncomplicated infections." },
         { id: "azithromycin", name: "Azithromycin", class: "Macrolide", system: "Antibiotics", brands: ["Azomax"], dose: "500mg OD x 3 days", front: "Azithromycin: Role in XDR Typhoid?", back: "In Pakistan, <em>Salmonella Typhi</em> is extensively drug-resistant (XDR). Ceftriaxone is failing. <strong>Azithromycin</strong> (oral) or <strong>Meropenem</strong> (IV) are the drugs of choice." },
-        { id: "p iptazo", name: "Piperacillin-Tazobactam", class: "Antipseudomonal Penicillin", system: "Antibiotics", brands: ["Tazocin", "Tanzo"], dose: "4.5g IV 8h", front: "Pip-Tazo: The 'Prolonged Infusion' Hack?", back: "Beta-lactams are time-dependent. Infusing 4.5g over <strong>4 hours</strong> (instead of 30 mins) keeps levels above the MIC longer, drastically improving mortality in Pseudomonas sepsis." },
+        { id: "piptazo", name: "Piperacillin-Tazobactam", class: "Antipseudomonal Penicillin", system: "Antibiotics", brands: ["Tazocin", "Tanzo"], dose: "4.5g IV 8h", front: "Pip-Tazo: The 'Prolonged Infusion' Hack?", back: "Beta-lactams are time-dependent. Infusing 4.5g over <strong>4 hours</strong> (instead of 30 mins) keeps levels above the MIC longer, drastically improving mortality in Pseudomonas sepsis." },
         { id: "meropenem", name: "Meropenem", class: "Carbapenem", system: "Antibiotics", brands: ["Meronem"], dose: "1g IV 8h", front: "Meropenem: The Renal Dose Danger?", back: "If a CKD patient receives a normal dose, it accumulates in the CNS and causes <strong>Seizures</strong>. Must strictly adjust for CrCl < 50." },
         { id: "vancomycin", name: "Vancomycin", class: "Glycopeptide", system: "Antibiotics", brands: ["Vancocin"], dose: "15-20mg/kg IV BD", front: "Vancomycin: 'Red Man Syndrome' mechanism & prevention?", back: "Not a true allergy; it's a <strong>histamine release</strong> caused by rapid infusion. <strong>Prevention:</strong> Infuse slowly over at least 1 hour." },
-        
-        // ANTI-TB
         { id: "hrze", name: "HRZE (Anti-TB)", class: "Fixed Dose Combo", system: "Anti-TB", brands: ["Myrin-P Forte", "Rifa-4"], dose: "Weight-based OD", front: "HRZE: Match the drug to its classic toxicity?", back: "<strong>Rifampicin:</strong> Red/Orange secretions, CYP450 Inducer.<br><strong>Isoniazid:</strong> Peripheral Neuropathy (Give B6).<br><strong>Pyrazinamide:</strong> Hyperuricemia/Gout.<br><strong>Ethambutol:</strong> Optic Neuritis (Red-Green blindness)." },
-        
-        // CVS
         { id: "lisinopril", name: "Lisinopril", class: "ACE Inhibitor", system: "CVS", brands: ["Zestril", "Ziscar"], dose: "5-10mg OD (Max 40)", front: "ACE Inhibitors: The 'Dry Cough' mechanism?", back: "Accumulation of <strong>Bradykinin</strong> in the lungs. If intolerable, switch to an ARB (Losartan) which does not affect bradykinin." },
         { id: "losartan", name: "Losartan", class: "ARB", system: "CVS", brands: ["Xavor", "Eziday"], dose: "50mg OD (Max 100)", front: "Losartan + HCTZ: The Gout Trigger?", back: "HCTZ (Hydrochlorothiazide) causes <strong>Hyperuricemia</strong>. Avoid Co-Eziday/Xavor-DIU in patients with a history of Gout." },
         { id: "amlodipine", name: "Amlodipine", class: "CCB (Dihydropyridine)", system: "CVS", brands: ["Norvasc", "Amodip"], dose: "2.5-5mg OD (Max 10)", front: "Amlodipine: Pedal Edema Hack?", back: "Edema is due to precapillary vasodilation (hydrostatic pressure), NOT heart failure. <strong>Do not give Lasix.</strong> Add an ACEi/ARB to dilate the post-capillary venule and resolve edema." },
         { id: "clopidogrel", name: "Clopidogrel", class: "P2Y12 Inhibitor", system: "CVS", brands: ["Lowplat", "Noclot"], dose: "75mg OD", front: "Clopidogrel: The PPI Interaction Trap?", back: "Clopidogrel is a prodrug activated by <strong>CYP2C19</strong>. <strong>Omeprazole</strong> inhibits this enzyme, causing stent thrombosis. Always use <strong>Pantoprazole</strong> instead." },
         { id: "atorvastatin", name: "Atorvastatin", class: "Statin", system: "CVS", brands: ["Lipiget", "Atorva"], dose: "10-80mg OD", front: "Statins: The 'Muscle Ache' Red Flag?", back: "Unexplained severe myalgia can indicate <strong>Rhabdomyolysis</strong>. Stop the drug and check CPK immediately to prevent acute tubular necrosis (AKI)." },
         { id: "amiodarone", name: "Amiodarone", class: "Class III Antiarrhythmic", system: "CVS", brands: ["Cordarone"], dose: "Load then 100-400mg OD", front: "Amiodarone: 4 Major Organ Toxicities?", back: "<strong>1. Lungs:</strong> Pulmonary Fibrosis.<br><strong>2. Thyroid:</strong> Hypo/Hyper (contains Iodine).<br><strong>3. Liver:</strong> Hepatotoxicity.<br><strong>4. Eyes:</strong> Corneal micro-deposits." },
-        
-        // ENDOCRINE
         { id: "metformin", name: "Metformin", class: "Biguanide", system: "Endocrine", brands: ["Glucophage", "Neodipar"], dose: "500mg OD/BD (Max 2g)", front: "Metformin: When to hold & fatal risk?", back: "Hold in AKI, Sepsis, Tissue Hypoxia, or IV Contrast. Risk: <strong>Lactic Acidosis</strong>." },
         { id: "glibenclamide", name: "Glibenclamide", class: "Sulfonylurea", system: "Endocrine", brands: ["Daonil"], dose: "2.5mg OD", front: "Glibenclamide: Why is it deprecated?", back: "Long half-life & active metabolites. Causes <strong>prolonged, fatal hypoglycemia</strong> in the elderly or mild CKD. Replace with Glimepiride or Gliptins." },
         { id: "carbimazole", name: "Carbimazole", class: "Thioamide", system: "Endocrine", brands: ["Neomercazole"], dose: "10-60mg/day", front: "Carbimazole: The 'Sore Throat' Warning?", back: "Risk of <strong>Agranulocytosis</strong>. Counsel patient: 'If you get a sudden severe sore throat and fever, stop the drug and get a STAT CBC.'" },
         { id: "prednisolone", name: "Prednisolone", class: "Corticosteroid", system: "Endocrine", brands: ["Deltacortil"], dose: "1mg/kg/day", front: "Steroids: The 'Abrupt Cessation' Danger?", back: "Causes HPA Axis Suppression. Abrupt stopping leads to <strong>Adrenal Crisis</strong> (refractory hypotension/shock). Always taper slowly." },
-        
-        // GIT
         { id: "pantoprazole", name: "Pantoprazole", class: "PPI", system: "GIT", brands: ["Zopent", "Protonol"], dose: "40mg OD", front: "PPIs: The 'ICU Pneumonia' Link?", back: "Prolonged IV PPIs alter gastric pH, allowing bacterial overgrowth and increasing the risk of <strong>Ventilator-Associated Pneumonia (VAP)</strong> and C. diff. De-prescribe when tolerating oral diet." },
         { id: "metoclopramide", name: "Metoclopramide", class: "D2 Antagonist", system: "GIT", brands: ["Maxolon"], dose: "10mg TDS", front: "Metoclopramide: The 'Oculogyric Crisis' Antidote?", back: "Crosses BBB -> Extrapyramidal Symptoms (EPS) / Acute Dystonia. <strong>Antidote:</strong> IV Benztropine or Diphenhydramine." },
         { id: "lactulose", name: "Lactulose", class: "Osmotic Laxative", system: "GIT", brands: ["Duphalac"], dose: "15-30ml 8h", front: "Lactulose in Hepatic Encephalopathy: Titration Goal?", back: "Converts NH3 to NH4+ (trap). Titrate dose to achieve exactly <strong>2 to 3 soft stools a day</strong>. More causes dehydration -> worsens encephalopathy." },
-        
-        // RESPIRATORY
         { id: "salbutamol", name: "Salbutamol", class: "SABA", system: "Respiratory", brands: ["Aerolin", "Salbo"], dose: "2 puffs 4-6h", front: "Salbutamol: The 'Asthma Hypokalemia' Trap?", back: "High-dose continuous nebulizers drive Potassium into cells -> <strong>Severe Hypokalemia</strong> -> Fatal Arrhythmias. Check U&Es in severe asthma." },
         { id: "theophylline", name: "Theophylline", class: "Methylxanthine", system: "Respiratory", brands: ["Theograd"], dose: "½ tab TDS", front: "Theophylline: The Ciprofloxacin Interaction?", back: "Narrow therapeutic index. Cipro inhibits its metabolism -> <strong>Theophylline Toxicity</strong> (Intractable vomiting, Seizures, Arrhythmias)." },
-        
-        // CNS
-        { id: "phenytoin", name: "Phenytoin", class: "Na+ Channel Blocker", system: "CNS", brands: ["Epilantin"], dose: "Load then maintain", front: "Phenytoin: IV Administration Rules?", back: "<strong>1.</strong> NEVER mix with Dextrose (precipitates). Use NS.<br><strong>2.</strong> Use inline filter.<br><strong>3.</strong> Flush line to prevent 'Purple Glove Syndrome' (tissue necrosis)." }    ];
+        { id: "phenytoin", name: "Phenytoin", class: "Na+ Channel Blocker", system: "CNS", brands: ["Epilantin"], dose: "Load then maintain", front: "Phenytoin: IV Administration Rules?", back: "<strong>1.</strong> NEVER mix with Dextrose (precipitates). Use NS.<br><strong>2.</strong> Use inline filter.<br><strong>3.</strong> Flush line to prevent 'Purple Glove Syndrome' (tissue necrosis)." }
+    ];
 
     // ==========================================
     // WARD VIEW LOGIC
     // ==========================================
     const drugList = document.getElementById('drugList');
     const searchInput = document.getElementById('searchInput');
-
     function renderWard(filter = '') {
         drugList.innerHTML = '';
         const systems = [...new Set(drugDatabase.map(d => d.system))];
@@ -922,7 +801,7 @@
                 let sysHTML = `<div class="system-header">${sys} <span>${filtered.length}</span></div>`;
                 filtered.forEach(drug => {
                     const noteKey = `note_${drug.id}`;
-                    const savedNote = localStorage.getItem(noteKey) || '';
+                    const savedNote = vault.get(noteKey) || '';
                     const brandsHTML = drug.brands.map(b => `<span class="brand-tag">${b}</span>`).join('');
                     
                     sysHTML += `
@@ -935,7 +814,7 @@
                             <h4>Elite Pearl / Toxicity</h4>
                             <div class="pearl">${drug.back.replace(/<br>/g, '<br>')}</div>
                             <h4>📝 My Ward Notes</h4>
-                            <textarea class="notes-area" placeholder="Add personal notes (e.g., Ward 4 pharmacy out of stock)..." oninput="saveNote('${noteKey}', this.value)">${savedNote}</textarea>
+                            <textarea class="notes-area" placeholder="Add personal notes..." oninput="vault.set('${noteKey}', this.value)">${savedNote}</textarea>
                         </div>
                     `;
                 });
@@ -946,22 +825,18 @@
     renderWard();
     searchInput.addEventListener('input', (e) => renderWard(e.target.value.toLowerCase()));
 
-    function saveNote(key, val) { localStorage.setItem(key, val); }
     // ==========================================
     // ANKI SRS ENGINE
     // ==========================================
-    let ankiState = JSON.parse(localStorage.getItem('ankiState')) || {};
+    let ankiState = JSON.parse(vault.get('ankiState') || '{}');
     let currentCard = null;
 
     function initAnki() {
         drugDatabase.forEach(d => {
-            if (!ankiState[d.id]) ankiState[d.id] = { status: 'new', interval: 0, due: Date.now() };
-        });
-        saveAnki();
+            if (!ankiState[d.id]) ankiState[d.id] = { status: 'new', interval: 0, due: Date.now() };        });
+        vault.set('ankiState', JSON.stringify(ankiState));
         loadNextCard();
     }
-
-    function saveAnki() { localStorage.setItem('ankiState', JSON.stringify(ankiState)); }
 
     function loadNextCard() {
         const now = Date.now();
@@ -996,16 +871,17 @@
         }
     }
 
-    function rateCard(quality) {        let state = ankiState[currentCard.id];
+    function rateCard(quality) {
+        let state = ankiState[currentCard.id];
         let now = Date.now();
         if (quality === 1) { state.status = 'learning'; state.due = now + 60000; } 
         else if (quality === 2) { state.status = 'learning'; state.due = now + 600000; } 
         else if (quality === 3) { state.status = 'review'; state.interval = state.interval === 0 ? 1 : state.interval * 2; state.due = now + (state.interval * 86400000); } 
         else if (quality === 4) { state.status = 'review'; state.interval = state.interval === 0 ? 3 : state.interval * 3; state.due = now + (state.interval * 86400000); }
-        saveAnki();
+        
+        vault.set('ankiState', JSON.stringify(ankiState));
         loadNextCard();
     }
-
     function updateStats() {
         const now = Date.now();
         const due = drugDatabase.filter(d => ankiState[d.id].status === 'review' && ankiState[d.id].due <= now).length;
@@ -1015,7 +891,7 @@
     }
 
     function resetAnki() {
-        if(confirm('Reset all Anki progress?')) { localStorage.removeItem('ankiState'); initAnki(); }
+        if(confirm('Reset all Anki progress?')) { vault.remove('ankiState'); ankiState = {}; initAnki(); }
     }
 
     // ==========================================
@@ -1033,13 +909,11 @@
         const toggle = document.getElementById('themeToggle');
         toggle.classList.toggle('active');
         document.body.setAttribute('data-theme', toggle.classList.contains('active') ? 'dark' : 'light');
-        localStorage.setItem('theme', document.body.getAttribute('data-theme'));
+        vault.set('theme', document.body.getAttribute('data-theme'));
     }
 
-    if (localStorage.getItem('theme') === 'dark') {
+    if (vault.get('theme') === 'dark') {
         document.body.setAttribute('data-theme', 'dark');
         document.getElementById('themeToggle').classList.add('active');
     }
 </script>
-</body>
-</html>
